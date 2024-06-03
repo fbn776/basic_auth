@@ -56,7 +56,7 @@ export default function Home() {
 				onClick={() => {
 					dispatchToastEvent({
 						type: "info",
-						message: "Hello, World!",
+						message: "Invalid email or password.",
 						duration: 5000,
 					});
 				}}

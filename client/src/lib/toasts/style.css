@@ -1,14 +1,15 @@
 
 .toast {
 	position: fixed;
-	margin: auto;
 	height: 60px;
 	transform: translateY(100px);
 	left: 50%;
 	translate: -50%;
 	opacity: 0;
-	@apply px-2 py-1 flex items-center justify-between shadow-lg bottom-10;
-	transition: transform 0.3s, opacity 0.3s;
+	width: fit-content;
+	
+	@apply flex items-center justify-between shadow-lg max-sm:max-w-[80%];
+	transition: transform 0.3s, opacity 0.3s, bottom 0.1s;
 }
 
 .toast.show {
@@ -20,14 +21,35 @@
 	@apply bg-green-500 text-white;
 }
 
+.toast.success button {
+	@apply bg-green-600;
+}
+
+
 .toast.error {
 	@apply bg-red-500 text-white;
+}
+
+.toast.error button {
+	@apply bg-red-600;
 }
 
 .toast.warning {
 	@apply bg-yellow-500 text-white;
 }
 
+.toast.warning button {
+	@apply bg-yellow-600;
+}
+
 .toast.info {
 	@apply bg-blue-500 text-white;
 }
+
+.toast.info button {
+	@apply bg-blue-600;
+}
+
+.toast:hover button {
+	@apply scale-110
+}	

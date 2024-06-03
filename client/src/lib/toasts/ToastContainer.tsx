@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./style.css";
 import { ToastEventDetail } from "./events";
+import { mapToRange } from "../utils";
+
+const MAX_TOASTS = 10;
 
 export default function ToastContainer() {
 	const [toastsArr, setToastsArr] = useState<ToastEventDetail[]>([]);
@@ -12,7 +15,7 @@ export default function ToastContainer() {
 
 			setToastsArr((prev) => {
 				return [
-					...prev.slice(prev.length - 10),
+					...prev.slice(prev.length - MAX_TOASTS),
 					(e as CustomEvent<ToastEventDetail>).detail,
 				];
 			});
@@ -25,23 +28,20 @@ export default function ToastContainer() {
 		};
 	}, []);
 
+	let i = 0;
 	return (
 		<>
 			{toastsArr.map((toast, index) => {
-				return <Toast data={toast} key={toast.key || index} posFromBottom={mapToRange(index, 0, 4, 0, 2.5)}/>;
+				return <Toast data={toast} key={toast.key || index} posFromBottom={mapToRange(++i, 0, toastsArr.length, 0, 2.5)}/>;
 			})}
 		</>
 	);
 }
 
-function mapToRange(value: number, x1: number, y1: number, x2: number, y2: number) {
-	return ((value - x1) * (y2 - x2)) / (y1 - x1) + x2;
-}
-
 function Toast({
 	data,
 	onClose,
-	posFromBottom = 2.5, // 2.5rem
+	posFromBottom, // 2.5rem
 }: {
 	data: ToastEventDetail;
 	onClose?: () => void;
@@ -65,19 +65,41 @@ function Toast({
 		};
 	}, []);
 
+console.log(Date.now(), posFromBottom);
+
 	return (
-		<div className={`toast ${data.type}`} style={{
-			bottom: `${posFromBottom}rem`,
-		}} ref={elm}>
-			<div className="mr-4">{data.message}</div>
+		<div
+			className={`toast ${data.type}`}
+			ref={elm}
+			style={{
+				bottom: `${posFromBottom}rem`,
+			}}
+		>
+			<div className="px-2 text-ellipsis text-nowrap whitespace-nowrap overflow-hidden">
+				{data.message}
+			</div>
 			<button
-				className="aspect-square h-[80%] border-l-2 border-white border-opacity-10"
+				className="h-[100%] px-2 border-l-2 border-white border-opacity-10"
 				onClick={() => {
 					elm.current?.classList.remove("show");
 					onClose?.();
 				}}
 			>
-				X
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="20"
+					height="20"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="currentColor"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+					<path d="M18 6l-12 12" />
+					<path d="M6 6l12 12" />
+				</svg>
 			</button>
 		</div>
 	);
