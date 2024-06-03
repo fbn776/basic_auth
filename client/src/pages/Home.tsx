@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import dispatchToastEvent from "../lib/toasts/events";
 
 export default function Home() {
 	return (
@@ -14,6 +15,54 @@ export default function Home() {
 					Signup
 				</button>
 			</Link>
+
+			<button
+				onClick={() => {
+					dispatchToastEvent({
+						type: "success",
+						message: "Hello, World!",
+						duration: 5000,
+					});
+				}}
+			>
+				Success
+			</button>
+
+			<button
+				onClick={() => {
+					dispatchToastEvent({
+						type: "error",
+						message: "Hello, World!",
+						duration: 5000,
+					});
+				}}
+			>
+				Error
+			</button>
+
+			<button
+				onClick={() => {
+					dispatchToastEvent({
+						type: "warning",
+						message: "Hello, World!",
+						duration: 5000,
+					});
+				}}
+			>
+				Warning
+			</button>
+
+			<button
+				onClick={() => {
+					dispatchToastEvent({
+						type: "info",
+						message: "Hello, World!",
+						duration: 5000,
+					});
+				}}
+			>
+				Info
+			</button>
 		</div>
 	);
 }

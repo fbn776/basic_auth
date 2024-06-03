@@ -1,0 +1,33 @@
+
+.toast {
+	position: fixed;
+	margin: auto;
+	height: 60px;
+	transform: translateY(100px);
+	left: 50%;
+	translate: -50%;
+	opacity: 0;
+	@apply px-2 py-1 flex items-center justify-between shadow-lg bottom-10;
+	transition: transform 0.3s, opacity 0.3s;
+}
+
+.toast.show {
+	transform: translateY(0);
+	opacity: 1;
+}
+
+.toast.success {
+	@apply bg-green-500 text-white;
+}
+
+.toast.error {
+	@apply bg-red-500 text-white;
+}
+
+.toast.warning {
+	@apply bg-yellow-500 text-white;
+}
+
+.toast.info {
+	@apply bg-blue-500 text-white;
+}
