@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function PasswordInput({ value, onChange }: { value?: string, onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void}) {
+export default function PasswordInput({ value, onChange }: { value?: string, onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void}) {
 	const [passwordVisibility, setPasswordVisibility] = useState<
 		"password" | "text"
 	>("password");
@@ -15,6 +15,7 @@ export function PasswordInput({ value, onChange }: { value?: string, onChange?: 
 					placeholder="Password"
 					className="px-4 py-2 rounded-l mt-1"
 					value={value || ''}
+					required
 					onChange={onChange}
 				/>
 				<button
